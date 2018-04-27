@@ -40,3 +40,12 @@ App is running on 3001
   ```
   ERROR: cannot connect to database.
   ```
+  
+  
+  # Rutas
+  
+  ```
+  GET a /list-products -> devuelve un listado de productos.
+  GET a /list-products/:productname -> devuelve un producto unico por nombre.
+  POST a /product -> crea un producto nuevo y lo devuelve.
+  ```
