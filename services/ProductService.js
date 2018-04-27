@@ -1,4 +1,5 @@
-const product = require('../models/Product');
+const product = require('../models/Product'),
+	  productValidator = require('../validators/ProductValidator');
 
 const productService = function () {
 	this.listProducts = () => {
@@ -23,8 +24,12 @@ const productService = function () {
 	
 	this.create = (newProduct) => {
 		return new Promise((resolve, reject) => {
-			product.create(newProduct).then((success) => {
-				resolve(success);
+			productValidator.validate(newProduct).then((newProduct) => {
+				product.create(newProduct).then((success) => {
+					resolve(success);
+				}).catch((error) => {
+					reject(error);
+				});
 			}).catch((error) => {
 				reject(error);
 			});
