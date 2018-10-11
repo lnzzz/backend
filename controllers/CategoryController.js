@@ -9,5 +9,5 @@ const categoryController = function() {
 		});
 	}
 }
-
+// hago un cambio raro
 module.exports= new categoryController();
