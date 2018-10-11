@@ -12,9 +12,9 @@ const productService = function () {
 		});
 	}
 	
-	this.getProduct = (name) => {
+	this.getProduct = (id) => {
 		return new Promise((resolve, reject) => {
-			product.fetch(name).then((product) => {
+			product.fetch(id).then((product) => {
 				resolve(product);
 			}).catch((error) => {
 				reject(error);

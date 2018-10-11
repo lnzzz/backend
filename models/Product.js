@@ -1,5 +1,7 @@
 const config = require('../config'),
-	  mongoUtils = require('../utils/MongoUtils');
+	  mongoUtils = require('../utils/MongoUtils'),
+	  ObjectID = require('mongodb').ObjectID;
+
 	  
 const Product = function() {
 	this.fetchAll = () => {
@@ -18,15 +20,15 @@ const Product = function() {
 		});
 	}
 	
-	this.fetch = (name) => {
+	this.fetch = (id) => {
 		return new Promise((resolve, reject) => {
 			try {
 				let products = mongoUtils.getDb();
-				products.collection('products').find({ name : name }).toArray((err, results) => {
+				products.collection('products').findOne({ _id : ObjectID.createFromHexString(id) }, (err, result) => {
 					if (err) {
 						reject(err);
 					}
-					resolve(results);
+					resolve(result);
 				});
 			} catch (e) {
 				reject(e.message);
@@ -36,7 +38,6 @@ const Product = function() {
 	
 	
 	this.create = (newProduct) => {
-		console.log(newProduct);
 		return new Promise((resolve, reject) => {
 			try {
 				let products = mongoUtils.getDb();

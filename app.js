@@ -13,9 +13,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.post('/product', productController.create);
-app.get("/list-products", productController.listProducts);
-app.get("/list-products/:product", productController.getProduct);
-app.get("/list-categories", categoryController.listCategories);
+app.get("/products", productController.listProducts);
+app.get("/products/:product", productController.getProduct);
+app.get("/categories", categoryController.listCategories);
 
 app.listen(config.app.port, function() {
 	mongoUtils.connectToServer((error) => {
