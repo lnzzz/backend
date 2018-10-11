@@ -1,7 +1,12 @@
-const productService = require('../services/ProductService');
+const productService = require('../services/ProductService'),
+	  productValidator = require('../validators/ProductValidator');
 
 
-const productController = function() {	
+const productController = function() {
+	this.newProduct = (req, res) => {
+		
+	}
+	
 	this.listProducts = (req, res) => {
 		
 		productService.listProducts().then((result) => {
@@ -20,10 +25,14 @@ const productController = function() {
 	}
 	
 	this.create = (req, res) => {
-		productService.create(req.body).then((success) => {
-			res.status(200).send(success);
+		productValidator.validate(req.body).then((product) => {
+			productService.create(req.body).then((success) => {
+				res.status(200).send(success);
+			}).catch((error) => {
+				res.status(500).send({ message: error.message });
+			});
 		}).catch((error) => {
-			res.status(500).send({ message: error.message });
+			res.status(500).send({ message: error.message});
 		});
 	}
 }
